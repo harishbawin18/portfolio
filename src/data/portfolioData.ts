@@ -3,7 +3,7 @@ import { Project, Experience, SkillCategory, Certification } from '../types';
 export const PERSONAL_INFO = {
   name: 'Harish Bawin K P',
   initials: 'HB',
-  tagline: 'Embedded Systems Engineer | Multilayer PCB Design | Real-Time Signal Processing',
+  tagline: 'Electronics & Embedded Systems Engineer | Multilayer PCB Design | Real-Time Signal Processing',
   email: 'harishbawinas@gmail.com',
   phone: '+91 93455 87489',
   location: 'Chennai, India',
@@ -11,9 +11,11 @@ export const PERSONAL_INFO = {
   linkedinHandle: 'in/harish-bawin',
   github: 'https://github.com/harishbawin18',
   githubHandle: 'github.com/harishbawin18',
-  summary: `Electronics and Communication Engineering student at College of Engineering Guindy (Anna University) with hands-on experience in bare-metal embedded firmware development, ARM Cortex-M peripheral driver development, and multilayer PCB design. Proficient in Embedded C/C++, STM32, ESP32, Raspberry Pi, and Verilog, with strong fundamentals in register-level programming, communication protocols, and embedded systems.`,
-  hardwareBio: 'Hardware & multilayer PCB designer experienced in KiCad, high-density sensor routing, power integrity optimization, and wearable form factors.',
-  firmwareBio: 'Embedded firmware engineer specializing in bare-metal register programming on ARM Cortex-M, custom peripheral driver libraries, and real-time DSP pipelines.',
+  summary: `Electronics and Communication Engineering student at College of Engineering Guindy (Anna University) with hands-on experience in bare-metal embedded firmware development, ARM Cortex-M peripheral driver development, and multilayer PCB design. Proficient in Embedded C/C++, STM32, ESP32, Raspberry Pi, and Verilog, with strong fundamentals in bare metal programming, communication protocols, and embedded systems.`,
+  electronicsBio: 'Electronics & hardware designer experienced in KiCad 4-layer layout, high-density sensor routing, power integrity optimization, and analog/digital front-ends.',
+  embeddedBio: 'Embedded systems engineer specializing in bare metal programming on ARM Cortex-M, custom peripheral driver libraries, and real-time DSP pipelines.',
+  hardwareBio: 'Electronics & hardware designer experienced in KiCad 4-layer layout, high-density sensor routing, power integrity optimization, and analog/digital front-ends.',
+  firmwareBio: 'Embedded systems engineer specializing in bare metal programming on ARM Cortex-M, custom peripheral driver libraries, and real-time DSP pipelines.',
 };
 
 export const PROJECTS: Project[] = [
@@ -24,10 +26,10 @@ export const PROJECTS: Project[] = [
     categoryLabel: 'Bare-Metal Firmware',
     organization: 'Independent Hardware & Firmware Project',
     timeline: 'Core Technical Initiative',
-    summary: 'Developed a comprehensive bare-metal peripheral driver library for STM32 ARM Cortex-M microcontrollers directly using register manipulation without ST HAL or standard peripheral libraries.',
-    image: '/src/assets/images/stm32_driver_thumb_1788973761362.jpg',
+    summary: 'Developed a comprehensive bare-metal peripheral driver library for STM32 ARM Cortex-M microcontrollers directly using bare metal programming without ST HAL or standard peripheral libraries.',
+    image: '/images/stm32_driver_thumb.jpg',
     highlights: [
-      'Implemented GPIO, SPI, I2C, USART, interrupt configuration, and peripheral clock management through direct register-level programming without vendor HAL.',
+      'Implemented GPIO, SPI, I2C, USART, interrupt configuration, and peripheral clock management through direct bare metal programming without vendor HAL.',
       'Designed clean, modular, and reusable driver APIs based on the STM32F4/F1 Reference Manuals, emphasizing code reusability across Cortex-M targets.',
       'Configured nested vectored interrupt controller (NVIC), priority grouping, and pending bit routines for low-latency asynchronous events.',
       'Verified timing and signal integrity on STM32 Nucleo hardware using an external logic analyzer and digital oscilloscope.',
@@ -62,9 +64,9 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
     temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
     pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
     pGPIOHandle->pGPIOx->PUPDR |= temp;
-}`,
+} `,
     },
-    keyTakeaway: 'Mastery of ARM Cortex-M memory mapping, bitmask manipulation, and bus clock trees (AHB1, APB1, APB2) at the silicon register level.',
+    keyTakeaway: 'Mastery of ARM Cortex-M memory mapping, bitmask manipulation, and bus clock trees (AHB1, APB1, APB2) through bare metal programming.',
   },
   {
     id: 'wearable-biosensing-pcb',
@@ -74,7 +76,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
     organization: 'IBT Aura — Internship Project',
     timeline: 'Dec 2025 – Feb 2026',
     summary: 'Designed an ultra-compact 20 × 25 mm multilayer wearable hardware system incorporating PPG optical sensing, 6-axis motion tracking, and ultra-low power management.',
-    image: '/src/assets/images/pcb_biosensing_thumb_1788973778277.jpg',
+    image: '/images/pcb_biosensing_thumb.jpg',
     highlights: [
       'Designed a miniature 4-layer 20 × 25 mm rigid PCB in KiCad optimized for space-constrained wearable biometric monitoring.',
       'Achieved robust signal routing, controlled impedance traces, and solid ground planes to suppress RF and switching noise.',
@@ -121,7 +123,7 @@ int MAX86171_Init(I2C_TypeDef *i2c_bus) {
     organization: 'Biomedical Telemetry Initiative',
     timeline: 'Technical Project',
     summary: 'Engineered an ESP32-driven physiological signal acquisition system interfaced with an AD8232 analog front-end, capturing 250 Hz cardiac waveforms and streaming data over UART to MATLAB.',
-    image: '/src/assets/images/ecg_monitor_thumb_1788973791657.jpg',
+    image: '/images/ecg_monitor_thumb.jpg',
     highlights: [
       'Developed high-precision firmware for ESP32 utilizing hardware timer interrupts to achieve jitter-free 250 Hz ADC sampling.',
       'Interfaced AD8232 single-lead heart rate monitor front-end with Lead-Off Detection (LO+ and LO-) for sensor disconnect detection.',
@@ -172,7 +174,7 @@ static void IRAM_ATTR ecg_sample_timer_callback(void* arg) {
     organization: 'Assistive Device Initiative',
     timeline: 'Technical Project',
     summary: 'Built an embedded Linux assistive system combining hardware push-button triggers, camera capture, Tesseract OCR processing, and eSpeak text-to-speech synthesis.',
-    image: '/src/assets/images/smart_reader_thumb_1788973805163.jpg',
+    image: '/images/smart_reader_thumb.jpg',
     highlights: [
       'Constructed a standalone Raspberry Pi assistive reading device with hardware GPIO debouncing and auditory status cues.',
       'Engineered an automated pipeline: physical trigger -> image capture -> adaptive thresholding -> optical character recognition (OCR) -> text-to-speech (TTS).',
@@ -222,7 +224,7 @@ def on_button_press(channel):
     organization: 'Admini — AI Ecosystem for MSMEs',
     timeline: 'Aug 2025 – Oct 2025',
     summary: 'Developed firmware for an ESP32-based industrial tracking system driving servo motors, SPI TFT displays, and synchronized cloud communication via Node.js and MongoDB.',
-    image: '/src/assets/images/stm32_driver_thumb_1788973761362.jpg',
+    image: '/images/stm32_driver_thumb.jpg',
     highlights: [
       'Wrote modular firmware for ESP32 controlling dual precision servo actuators and rendering dynamic metrics on an SPI color TFT display.',
       'Established bi-directional cloud communication over REST and MQTT with a Node.js and MongoDB backend for real-time telemetry.',
@@ -247,9 +249,63 @@ void update_device_display(uint32_t units_counted, float motor_temp) {
     
     // Fast block transfer over SPI bus to ST7789 display controller
     tft_draw_string(10, 30, status_str, TFT_WHITE, TFT_BLACK);
-}`,
+} `,
     },
     keyTakeaway: 'End-to-end integration connecting raw silicon, displays, actuators, and enterprise cloud dashboards.',
+  },
+  {
+    id: 'automated-web-dev-tool',
+    title: 'AI-Powered Automated Web Development Tool',
+    category: 'iot',
+    categoryLabel: 'AI & Web Automation',
+    organization: 'Software & Automation Initiative',
+    timeline: 'Technical Initiative',
+    summary: 'Developed an AI-powered automated web development tool that transforms natural-language requirements into functional, responsive websites. The tool automates UI generation, code creation, component development, and deployment, reducing manual development effort and enabling rapid prototyping.',
+    image: '/images/auto_web_tool_thumb.jpg',
+    highlights: [
+      'Engineered an automated pipeline parsing high-level natural language prompts into structural UI specifications, components, and reactive states.',
+      'Automated dynamic React component generation with responsive Tailwind CSS styling, strict TypeScript typing, and accessible markup.',
+      'Integrated live preview rendering sandbox with rapid hot-reloading and automatic build verification.',
+      'Streamlined deployment pipeline allowing immediate publishing and export of production-ready, maintainable web applications.',
+    ],
+    specs: {
+      software: ['TypeScript', 'React', 'Tailwind CSS', 'Vite', 'Node.js', 'LLM Prompt Engineering'],
+      protocols: ['REST APIs', 'JSON Schema Validation', 'Vercel Deployment Automation'],
+    },
+    codeSnippet: {
+      language: 'typescript',
+      filename: 'component_generator.ts',
+      code: `// Automated UI Generator Pipeline: Prompt to Modular React Component
+import { z } from 'zod';
+
+export interface UIComponentSpec {
+  name: string;
+  props: Record<string, string>;
+  layout: 'flex' | 'grid' | 'stack';
+  children: string[];
+}
+
+export async function synthesizeWebComponent(requirement: string): Promise<string> {
+  // 1. Parse natural-language intent into structured schema
+  const spec = await parseRequirementIntent(requirement);
+  
+  // 2. Synthesize clean, responsive React + Tailwind code
+  const generatedCode = \`
+import React from 'react';
+
+export const \${spec.name}: React.FC = () => {
+  return (
+    <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-sm border border-neutral-200">
+      <h2 className="text-xl font-bold text-neutral-900">\${requirement}</h2>
+    </div>
+  );
+};
+  \`.trim();
+
+  return generatedCode;
+}`,
+    },
+    keyTakeaway: 'End-to-end software automation transforming unstructured human requirements into reliable, production-ready frontend codebases.',
   },
 ];
 
@@ -333,7 +389,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     iconName: 'Code',
     description: 'Low-level and systems programming languages for hardware and compute',
     skills: [
-      { name: 'Embedded C', level: 'Advanced', highlight: true, detail: 'Register manipulation, bitwise ops, memory maps' },
+      { name: 'Embedded C', level: 'Advanced', highlight: true, detail: 'Bare metal programming, bitwise ops, memory maps' },
       { name: 'C++', level: 'Proficient', highlight: true, detail: 'OOP for drivers, templates, hardware abstraction' },
       { name: 'Python', level: 'Proficient', detail: 'Scripting, OpenCV, OCR, automation, data logging' },
       { name: 'Verilog', level: 'Core', detail: 'RTL design, FSMs, combinational/sequential logic' },
@@ -345,7 +401,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     description: 'Target architectures, microcontrollers, and real-time execution kernels',
     skills: [
       { name: 'ARM Cortex-M', level: 'Advanced', highlight: true, detail: 'M0/M3/M4 cores, NVIC, memory barriers, SysTick' },
-      { name: 'STM32 (Nucleo)', level: 'Advanced', highlight: true, detail: 'Direct register programming without vendor HAL' },
+      { name: 'STM32 (Nucleo)', level: 'Advanced', highlight: true, detail: 'Direct bare metal programming without vendor HAL' },
       { name: 'ESP32', level: 'Advanced', highlight: true, detail: 'Dual-core, WiFi/BLE, timer ISRs, ADC sampling' },
       { name: 'Raspberry Pi', level: 'Proficient', detail: 'Embedded Linux, GPIO, camera module, daemon services' },
       { name: 'Bare-Metal Programming', level: 'Advanced', highlight: true, detail: 'Startup code, linker scripts, clock trees' },
@@ -381,7 +437,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     iconName: 'Terminal',
     description: 'IDEs, toolchains, simulation packages, and instrumentation',
     skills: [
-      { name: 'STM32CubeIDE', level: 'Advanced', highlight: true, detail: 'Debug configurations, register views, build system' },
+      { name: 'STM32CubeIDE', level: 'Advanced', highlight: true, detail: 'Debug configurations, SFR & peripheral views, build system' },
       { name: 'MATLAB & Simulink', level: 'Proficient', detail: 'Signal processing, FFT, digital filter design' },
       { name: 'Git & Version Control', level: 'Proficient', detail: 'Repository workflow, submodules, branch strategy' },
       { name: 'Logic Analyzers & DSOs', level: 'Proficient', highlight: true, detail: 'Bus decoding, waveform inspection, timing jitter' },

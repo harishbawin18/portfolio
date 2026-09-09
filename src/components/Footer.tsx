@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
               © {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights reserved.
             </p>
             <p className="text-[11px] text-neutral-400 mt-0.5">
-              Embedded Systems Engineer &bull; Bare-Metal ARM Firmware &bull; Multilayer PCB Design
+              Electronics & Embedded Systems Engineer &bull; Bare-Metal ARM Firmware &bull; Multilayer PCB Design
             </p>
           </div>
 

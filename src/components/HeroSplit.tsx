@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import { Cpu, Layers, Terminal, Sparkles, SlidersHorizontal, ArrowDown, CheckCircle2 } from 'lucide-react';
+import { Cpu, Layers, Terminal } from 'lucide-react';
+import coatPhoto from '../assets/images/coatphoto.jpg';
 
 interface HeroSplitProps {
   onSelectCategory: (category: 'all' | 'hardware' | 'firmware' | 'iot') => void;
 }
 
 export const HeroSplit: React.FC<HeroSplitProps> = ({ onSelectCategory }) => {
-  const [sliderPosition, setSliderPosition] = useState<number>(50); // 0 to 100%
-  const [activeHover, setActiveHover] = useState<'hardware' | 'firmware' | null>(null);
+  const [activeHover, setActiveHover] = useState<'electronics' | 'embedded' | null>(null);
 
   // Derived focus level
-  const hardwareOpacity = activeHover === 'firmware' ? 0.4 : 1;
-  const firmwareOpacity = activeHover === 'hardware' ? 0.4 : 1;
+  const electronicsOpacity = activeHover === 'embedded' ? 0.45 : 1;
+  const embeddedOpacity = activeHover === 'electronics' ? 0.45 : 1;
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -45,28 +45,28 @@ export const HeroSplit: React.FC<HeroSplitProps> = ({ onSelectCategory }) => {
         {/* Main 3-Column Split Hero Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
           
-          {/* LEFT COLUMN: Hardware / PCB Designer */}
+          {/* LEFT COLUMN: Electronics & PCB */}
           <div
-            id="hero-hardware-col"
+            id="hero-electronics-col"
             className="lg:col-span-4 text-center lg:text-right transition-opacity duration-300 order-2 lg:order-1"
-            style={{ opacity: hardwareOpacity }}
-            onMouseEnter={() => setActiveHover('hardware')}
+            style={{ opacity: electronicsOpacity }}
+            onMouseEnter={() => setActiveHover('electronics')}
             onMouseLeave={() => setActiveHover(null)}
           >
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-semibold mb-3">
               <Layers className="w-3.5 h-3.5 text-amber-700" />
-              <span>PCB & Silicon Hardware</span>
+              <span>Electronics & PCB Design</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 font-sans leading-none mb-4">
-              hardware
+              electronics
             </h1>
 
             <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md mx-auto lg:ml-auto lg:mr-0 mb-6 font-normal">
-              {PERSONAL_INFO.hardwareBio}
+              {PERSONAL_INFO.electronicsBio || PERSONAL_INFO.hardwareBio}
             </p>
 
-            {/* Hardware Key Specs Badges */}
+            {/* Electronics Key Specs Badges */}
             <div className="flex flex-wrap gap-1.5 justify-center lg:justify-end mb-6 max-w-md mx-auto lg:ml-auto lg:mr-0">
               <span className="px-2.5 py-1 rounded bg-neutral-100 text-neutral-800 text-xs font-medium border border-neutral-200">
                 KiCad 4-Layer
@@ -90,123 +90,61 @@ export const HeroSplit: React.FC<HeroSplitProps> = ({ onSelectCategory }) => {
                 }}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-900 text-white text-xs font-bold hover:bg-neutral-800 transition-all shadow-sm active:scale-95"
               >
-                <span>Explore Hardware</span>
+                <span>Explore Electronics</span>
                 <span className="text-amber-400">→</span>
               </button>
             </div>
           </div>
 
-          {/* CENTER COLUMN: Split Interactive Portrait */}
+          {/* CENTER COLUMN: Clean Portrait (No drag bar, no overlays) */}
           <div className="lg:col-span-4 flex flex-col items-center justify-center order-1 lg:order-2">
             <div
-              id="hero-split-container"
-              className="relative w-64 sm:w-72 md:w-80 aspect-square rounded-2xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)] border-2 border-neutral-200/90 bg-white group select-none cursor-ew-resize"
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-                const pct = (x / rect.width) * 100;
-                setSliderPosition(Math.round(pct));
-              }}
-              onTouchMove={(e) => {
-                const touch = e.touches[0];
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = Math.max(0, Math.min(touch.clientX - rect.left, rect.width));
-                const pct = (x / rect.width) * 100;
-                setSliderPosition(Math.round(pct));
-              }}
+              id="hero-portrait-container"
+              className="relative w-64 sm:w-72 md:w-80 aspect-[4/5] sm:aspect-square rounded-2xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-neutral-200 bg-neutral-100"
             >
-              {/* Full Image */}
+              {/* Direct Unaltered Portrait */}
               <img
-                src="/src/assets/images/hero_split_portrait_1788973740137.jpg"
-                alt="Harish Bawin K P — Dual Hardware and Firmware Engineer Portrait"
-                className="w-full h-full object-cover pointer-events-none"
+                src={coatPhoto || 'src/assets/images/coatphoto.jpg'}
+                alt="Harish Bawin K P — Electronics & Embedded Systems Engineer"
+                className="w-full h-full object-cover object-[center_18%]"
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.includes('coatphoto.jpg')) {
+                    target.src = '/images/coatphoto.jpg';
+                  }
+                }}
               />
-
-              {/* Dynamic Overlay Split Line */}
-              <div
-                className="absolute top-0 bottom-0 w-0.5 bg-white/90 shadow-[0_0_10px_rgba(0,0,0,0.5)] z-20 pointer-events-none"
-                style={{ left: `${sliderPosition}%` }}
-              >
-                {/* Center Handle Knob */}
-                <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-neutral-900 border-2 border-white text-white flex items-center justify-center shadow-lg text-[10px] font-bold">
-                  ↔
-                </div>
-              </div>
-
-              {/* Top Pill Indicators inside Portrait */}
-              <div className="absolute top-3 left-3 z-10 pointer-events-none">
-                <span className="px-2 py-0.5 rounded bg-black/70 text-amber-300 text-[10px] font-mono backdrop-blur-sm">
-                  HARDWARE
-                </span>
-              </div>
-              <div className="absolute top-3 right-3 z-10 pointer-events-none">
-                <span className="px-2 py-0.5 rounded bg-black/70 text-emerald-300 text-[10px] font-mono backdrop-blur-sm">
-                  &lt;FIRMWARE&gt;
-                </span>
-              </div>
-
-              {/* Bottom Subtle Status */}
-              <div className="absolute bottom-2 inset-x-0 flex justify-center z-10 pointer-events-none">
-                <span className="text-[10px] bg-white/85 text-neutral-700 px-2.5 py-0.5 rounded-full backdrop-blur-sm border border-neutral-200/60 font-medium">
-                  Drag or hover to inspect dual specialization
-                </span>
-              </div>
             </div>
-
-            {/* Quick Balance Slider Control */}
-            <div className="mt-4 flex items-center gap-3 text-xs text-neutral-500 font-medium">
-              <button
-                onClick={() => setSliderPosition(20)}
-                className={`px-2.5 py-1 rounded-full text-[11px] transition-colors ${
-                  sliderPosition < 40 ? 'bg-neutral-900 text-white font-bold' : 'hover:bg-neutral-100 text-neutral-600'
-                }`}
-              >
-                Hardware Focus
-              </button>
-              <button
-                onClick={() => setSliderPosition(50)}
-                className={`px-2.5 py-1 rounded-full text-[11px] transition-colors ${
-                  sliderPosition >= 40 && sliderPosition <= 60
-                    ? 'bg-neutral-900 text-white font-bold'
-                    : 'hover:bg-neutral-100 text-neutral-600'
-                }`}
-              >
-                50 / 50 Split
-              </button>
-              <button
-                onClick={() => setSliderPosition(80)}
-                className={`px-2.5 py-1 rounded-full text-[11px] transition-colors ${
-                  sliderPosition > 60 ? 'bg-neutral-900 text-white font-bold' : 'hover:bg-neutral-100 text-neutral-600'
-                }`}
-              >
-                Firmware Focus
-              </button>
+            <div className="mt-3 text-center">
+              <span className="text-xs font-medium text-neutral-500 font-mono">
+                {PERSONAL_INFO.name}
+              </span>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Firmware / Coder */}
+          {/* RIGHT COLUMN: Embedded Systems / Firmware */}
           <div
-            id="hero-firmware-col"
+            id="hero-embedded-col"
             className="lg:col-span-4 text-center lg:text-left transition-opacity duration-300 order-3"
-            style={{ opacity: firmwareOpacity }}
-            onMouseEnter={() => setActiveHover('firmware')}
+            style={{ opacity: embeddedOpacity }}
+            onMouseEnter={() => setActiveHover('embedded')}
             onMouseLeave={() => setActiveHover(null)}
           >
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-900 text-xs font-semibold mb-3">
               <Terminal className="w-3.5 h-3.5 text-emerald-700" />
-              <span>Bare-Metal & Real-Time C</span>
+              <span>Embedded Systems & Firmware</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 font-mono leading-none mb-4">
-              &lt;firmware&gt;
+              &lt;embedded system&gt;
             </h1>
 
             <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md mx-auto lg:mr-auto lg:ml-0 mb-6 font-normal">
-              {PERSONAL_INFO.firmwareBio}
+              {PERSONAL_INFO.embeddedBio || PERSONAL_INFO.firmwareBio}
             </p>
 
-            {/* Firmware Key Specs Badges */}
+            {/* Embedded Key Specs Badges */}
             <div className="flex flex-wrap gap-1.5 justify-center lg:justify-start mb-6 max-w-md mx-auto lg:mr-auto lg:ml-0">
               <span className="px-2.5 py-1 rounded bg-neutral-100 text-neutral-800 text-xs font-mono border border-neutral-200">
                 ARM Cortex-M
@@ -230,7 +168,7 @@ export const HeroSplit: React.FC<HeroSplitProps> = ({ onSelectCategory }) => {
                 }}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-900 text-white text-xs font-bold hover:bg-neutral-800 transition-all shadow-sm active:scale-95"
               >
-                <span>Explore Firmware</span>
+                <span>Explore Embedded Systems</span>
                 <span className="text-emerald-400">→</span>
               </button>
             </div>
@@ -244,7 +182,7 @@ export const HeroSplit: React.FC<HeroSplitProps> = ({ onSelectCategory }) => {
             Electronics & Communication Engineering • College of Engineering Guindy (Anna University)
           </p>
           <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-2xl mx-auto">
-            Chennai, India • Direct register programming, custom peripheral driver libraries, and space-constrained multilayer PCB design.
+            Chennai, India • Direct bare metal programming, custom peripheral driver libraries, and space-constrained multilayer PCB design.
           </p>
         </div>
       </div>

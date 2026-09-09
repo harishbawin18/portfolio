@@ -185,7 +185,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <div className="font-bold text-neutral-900">Bare-Metal STM32 Peripheral Driver Development</div>
                 <ul className="list-disc pl-4 space-y-1 text-neutral-700 mt-1">
                   <li>
-                    Developed a bare-metal peripheral driver library for STM32 ARM Cortex-M microcontrollers, implementing GPIO, SPI, I2C, USART, interrupt configuration, and peripheral clock management through direct register-level programming without HAL.
+                    Developed a bare-metal peripheral driver library for STM32 ARM Cortex-M microcontrollers, implementing GPIO, SPI, I2C, USART, interrupt configuration, and peripheral clock management through direct bare metal programming without HAL.
                   </li>
                   <li>
                     Designed reusable and modular driver APIs based on the STM32 Reference Manual, enabling reliable peripheral communication and code reusability.

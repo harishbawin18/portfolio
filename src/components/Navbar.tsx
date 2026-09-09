@@ -45,15 +45,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             className="flex items-center gap-3 group focus:outline-none"
             title={`${PERSONAL_INFO.name} Portfolio`}
           >
-            <div className="w-10 h-10 rounded-full bg-white text-[#161616] flex items-center justify-center font-bold text-base tracking-tighter shadow-md group-hover:scale-105 transition-transform duration-200">
-              {PERSONAL_INFO.initials}
+            <div className="w-10 h-10 rounded-full bg-white overflow-hidden p-0.5 border border-neutral-700 shadow-md group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
+              <img
+                src="/icon.png"
+                alt="HB Monogram"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="hidden sm:block text-left">
               <span className="block text-sm font-bold tracking-tight text-white group-hover:text-neutral-300 transition-colors">
                 {PERSONAL_INFO.name}
               </span>
               <span className="block text-[11px] text-neutral-400 font-medium tracking-wide">
-                Embedded & PCB Engineer
+                Electronics & Embedded Systems Engineer
               </span>
             </div>
           </a>

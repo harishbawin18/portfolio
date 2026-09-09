@@ -21,9 +21,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   const categories = [
     { id: 'all', label: 'All Projects' },
-    { id: 'firmware', label: 'Bare-Metal & Firmware' },
-    { id: 'hardware', label: 'PCB & Hardware' },
-    { id: 'iot', label: 'IoT & Signal Processing' },
+    { id: 'firmware', label: 'Embedded Systems' },
+    { id: 'hardware', label: 'Electronics & PCB' },
+    { id: 'iot', label: 'IoT & Web Automation' },
   ] as const;
 
   return (
@@ -36,7 +36,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             SOME OF MY LATEST WORK
           </h2>
           <p className="text-sm text-neutral-600 max-w-lg mx-auto">
-            Hands-on implementations in register-level firmware, multilayer KiCad PCB layout, and real-time sensor processing.
+            Hands-on implementations in bare metal programming, multilayer KiCad PCB layout, and real-time sensor processing.
           </p>
         </div>
 

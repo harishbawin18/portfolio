@@ -204,7 +204,7 @@ export const InteractiveWorkbench: React.FC = () => {
             Interactive Engineering Workbench
           </h2>
           <p className="text-sm text-neutral-600 max-w-xl mx-auto">
-            Test and simulate the physical signal processing and bare-metal register layers built for the ESP32 and STM32 Cortex-M.
+            Test and simulate the physical signal processing and bare metal programming layers built for the ESP32 and STM32 Cortex-M.
           </p>
         </div>
 
@@ -373,7 +373,7 @@ export const InteractiveWorkbench: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-xs text-neutral-400 mt-0.5">
-                  Direct register manipulation without ST HAL. Toggle bits below to calculate binary mask and C code.
+                  Direct bare metal programming without ST HAL. Toggle bits below to calculate binary mask and C code.
                 </p>
               </div>
 
