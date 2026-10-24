@@ -27,121 +27,145 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   ] as const;
 
   return (
-    <section id="featured" className="py-20 bg-[#fafafa] border-b border-neutral-200">
+    <section id="featured" className="py-24 bg-transparent border-b border-neutral-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Adham Dannaway style section heading */}
+        {/* Section Heading */}
         <div className="text-center mb-10">
-          <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-500 font-bold mb-3">
-            SOME OF MY LATEST WORK
-          </h2>
-          <p className="text-sm text-neutral-600 max-w-lg mx-auto">
-            Hands-on implementations in bare metal programming, multilayer KiCad PCB layout, and real-time sensor processing.
-          </p>
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            <h2 className="text-xs uppercase tracking-[0.25em] text-red-500 font-mono font-bold">
+              PORTFOLIO SHOWCASE
+            </h2>
+          </div>
+          <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+            Featured Engineering Projects
+          </h3>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => onCategoryChange(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-150 ${
-                selectedCategory === cat.id
-                  ? 'bg-neutral-900 text-white shadow-sm'
-                  : 'bg-white text-neutral-600 hover:text-neutral-900 border border-neutral-200/80 hover:border-neutral-300'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+        {/* Category Filter Controls: Clean borderless text tabs without bounding boxes */}
+        <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8 mb-12">
+          {categories.map((cat) => {
+            const isActive = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => onCategoryChange(cat.id)}
+                className={`relative py-1 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer focus:outline-none ${
+                  isActive
+                    ? 'text-red-400 font-bold scale-105'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                <span>{cat.label}</span>
+                {isActive && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444]" />
+                )}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Project Cards Grid (Adham Dannaway card design) */}
+        {/* Project Cards Grid - Themed to match the cosmic dark background */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
               id={`project-card-${project.id}`}
               onClick={() => setActiveProject(project)}
-              className="group bg-white rounded-xl border border-neutral-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.09)] transition-all duration-200 cursor-pointer overflow-hidden flex flex-col hover:-translate-y-1"
+              className="group bg-[#0d0e17]/85 backdrop-blur-md rounded-2xl border border-red-950/40 hover:border-red-500/40 shadow-[0_8px_30px_rgba(0,0,0,0.7)] hover:shadow-[0_12px_40px_rgba(239,68,68,0.18)] transition-all duration-300 cursor-pointer overflow-hidden flex flex-col hover:-translate-y-1.5"
             >
               {/* Card Image Stage */}
-              <div className="relative aspect-[4/3] bg-neutral-100 border-b border-neutral-100 overflow-hidden">
+              <div className="relative aspect-[16/10] bg-[#07080f] border-b border-red-950/30 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e17] via-transparent to-transparent opacity-60" />
                 
-                {/* Category Badge overlay */}
+                {/* Category indicator */}
                 <div className="absolute top-3 left-3">
                   <span
-                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase backdrop-blur-md shadow-sm ${
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase backdrop-blur-md ${
                       project.category === 'firmware'
-                        ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/30'
+                        ? 'bg-red-950/80 text-red-300 border border-red-500/30'
                         : project.category === 'hardware'
-                        ? 'bg-amber-950/80 text-amber-300 border border-amber-500/30'
-                        : 'bg-blue-950/80 text-blue-300 border border-blue-500/30'
+                        ? 'bg-orange-950/80 text-orange-300 border border-orange-500/30'
+                        : 'bg-neutral-900/90 text-neutral-300 border border-neutral-700/50'
                     }`}
                   >
-                    {project.categoryLabel}
+                    {project.category}
                   </span>
                 </div>
 
-                {/* Inspect hover action badge */}
-                <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/80 text-white text-[11px] font-semibold backdrop-blur-sm shadow-md">
-                    <span>Inspect</span>
-                    <ArrowUpRight className="w-3 h-3" />
-                  </span>
-                </div>
-              </div>
-
-              {/* Card Meta & Typography (matching Adham Dannaway card text) */}
-              <div className="p-5 flex flex-col flex-1 justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-neutral-900 group-hover:text-black leading-snug mb-1.5 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs text-neutral-500 font-medium mb-3">
-                    {project.organization}
-                  </p>
-                  <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed mb-4">
-                    {project.summary}
-                  </p>
-                </div>
-
-                {/* Tech chips footer */}
-                <div className="pt-3 border-t border-neutral-100 flex flex-wrap gap-1.5 items-center justify-between">
-                  <div className="flex flex-wrap gap-1">
-                    {project.specs.protocols && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-100 text-neutral-700">
-                        {project.specs.protocols[0]}
-                      </span>
-                    )}
-                    {project.specs.mcu && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-100 text-neutral-700">
-                        {project.specs.mcu.split(' ')[0]}
-                      </span>
-                    )}
+                {(project.id === 'ecg-wearable-monitor' || project.id === 'stm32-baremetal-drivers') && (
+                  <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-600/90 text-white text-[10px] font-bold tracking-wider uppercase backdrop-blur-md shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+                    <Sparkles className="w-3 h-3" />
+                    <span>Featured</span>
                   </div>
-                  <span className="text-xs font-semibold text-neutral-900 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                    Details →
-                  </span>
-                </div>
+                )}
               </div>
+
+                {/* Card Content Details */}
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <h3 className="text-base font-bold text-white group-hover:text-red-400 transition-colors leading-snug">
+                        {project.title}
+                      </h3>
+                      <div className="w-7 h-7 rounded-full bg-neutral-900/80 group-hover:bg-red-600 text-neutral-400 group-hover:text-white flex items-center justify-center shrink-0 transition-colors border border-white/5">
+                        <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-neutral-400 line-clamp-3 mb-4 leading-relaxed font-normal">
+                      {project.summary}
+                    </p>
+                  </div>
+
+                  {/* Tech Specs */}
+                  <div>
+                    {(() => {
+                      const techList = [
+                        ...(project.specs.mcu ? [project.specs.mcu] : []),
+                        ...(project.specs.protocols || []),
+                        ...(project.specs.hardware || []),
+                      ];
+                      return (
+                        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-neutral-800/60">
+                          {techList.slice(0, 4).map((tech, idx) => (
+                            <span
+                              key={idx}
+                              className="px-2 py-0.5 rounded bg-neutral-950/60 text-[11px] font-mono text-neutral-300 border border-neutral-800/80 group-hover:border-red-950/50 transition-colors"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                          {techList.length > 4 && (
+                            <span className="px-1.5 py-0.5 rounded bg-neutral-950/50 text-[11px] font-mono text-neutral-500">
+                              +{techList.length - 4}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })()}
+                  </div>
+                </div>
             </div>
           ))}
         </div>
 
-        {/* Modal viewer for projects */}
+      </div>
+
+      {/* Project Detail Modal */}
+      {activeProject && (
         <ProjectModal
           project={activeProject}
           onClose={() => setActiveProject(null)}
         />
-      </div>
+      )}
     </section>
   );
 };

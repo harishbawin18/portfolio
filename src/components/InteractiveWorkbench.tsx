@@ -191,55 +191,55 @@ export const InteractiveWorkbench: React.FC = () => {
   const currentBaud = baudPrescalers[brCode];
 
   return (
-    <section id="workbench" className="py-20 bg-white border-b border-neutral-200">
+    <section id="workbench" className="py-20 bg-transparent border-b border-neutral-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-800 text-xs font-semibold mb-3">
-            <Zap className="w-3.5 h-3.5 text-amber-600" />
-            <span>Hardware & Driver Test Bench</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight mb-2">
+          <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
             Interactive Engineering Workbench
-          </h2>
-          <p className="text-sm text-neutral-600 max-w-xl mx-auto">
+          </h3>
+          <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">
             Test and simulate the physical signal processing and bare metal programming layers built for the ESP32 and STM32 Cortex-M.
           </p>
         </div>
 
-        {/* Workbench Tab Switcher */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-neutral-100 p-1 rounded-xl border border-neutral-200 flex gap-1">
-            <button
-              onClick={() => setActiveTab('ecg')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                activeTab === 'ecg'
-                  ? 'bg-white text-neutral-900 shadow-sm'
-                  : 'text-neutral-600 hover:text-neutral-900'
-              }`}
-            >
-              <Activity className="w-4 h-4 text-emerald-600" />
-              <span>ESP32 AD8232 ECG Telemetry (250 Hz)</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('register')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                activeTab === 'register'
-                  ? 'bg-white text-neutral-900 shadow-sm'
-                  : 'text-neutral-600 hover:text-neutral-900'
-              }`}
-            >
-              <Binary className="w-4 h-4 text-blue-600" />
-              <span>STM32 Bare-Metal Register Explorer</span>
-            </button>
-          </div>
+        {/* Workbench Tab Switcher: Clean borderless text tabs */}
+        <div className="flex justify-center gap-6 sm:gap-10 mb-8">
+          <button
+            onClick={() => setActiveTab('ecg')}
+            className={`relative py-1 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer focus:outline-none flex items-center gap-2 ${
+              activeTab === 'ecg'
+                ? 'text-red-400 font-bold scale-105'
+                : 'text-neutral-400 hover:text-white'
+            }`}
+          >
+            <Activity className="w-4 h-4 text-red-400" />
+            <span>ESP32 AD8232 ECG Telemetry (250 Hz)</span>
+            {activeTab === 'ecg' && (
+              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444]" />
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab('register')}
+            className={`relative py-1 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer focus:outline-none flex items-center gap-2 ${
+              activeTab === 'register'
+                ? 'text-red-400 font-bold scale-105'
+                : 'text-neutral-400 hover:text-white'
+            }`}
+          >
+            <Binary className="w-4 h-4 text-red-400" />
+            <span>STM32 Bare-Metal Register Explorer</span>
+            {activeTab === 'register' && (
+              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444]" />
+            )}
+          </button>
         </div>
 
         {/* TAB 1: ECG SIMULATOR */}
         {activeTab === 'ecg' && (
-          <div className="bg-[#0b1120] rounded-2xl border border-neutral-800 shadow-xl overflow-hidden p-6 text-white max-w-4xl mx-auto">
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-neutral-800">
+          <div className="bg-[#0d0e17]/85 rounded-2xl border border-red-950/40 shadow-xl overflow-hidden p-6 text-white max-w-4xl mx-auto backdrop-blur-md">
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-neutral-800/80">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -363,12 +363,12 @@ export const InteractiveWorkbench: React.FC = () => {
 
         {/* TAB 2: STM32 REGISTER BITFIELD EXPLORER */}
         {activeTab === 'register' && (
-          <div className="bg-[#12161f] rounded-2xl border border-neutral-800 shadow-xl overflow-hidden p-6 text-white max-w-4xl mx-auto">
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-neutral-800">
+          <div className="bg-[#0d0e17]/85 rounded-2xl border border-red-950/40 shadow-xl overflow-hidden p-6 text-white max-w-4xl mx-auto backdrop-blur-md">
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-neutral-800/80">
               <div>
                 <div className="flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-blue-400" />
-                  <span className="text-xs font-mono font-bold text-blue-300">
+                  <Cpu className="w-4 h-4 text-red-400" />
+                  <span className="text-xs font-mono font-bold text-red-300">
                     STM32F4 &bull; SPI_CR1 (SPI CONTROL REGISTER 1)
                   </span>
                 </div>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import { Github, Linkedin, Mail, FileText, Menu, X, Cpu, ChevronRight } from 'lucide-react';
+import { Github, Linkedin, Instagram, FileText, Menu, X, Sparkles } from 'lucide-react';
 
 interface NavbarProps {
   onOpenResume: () => void;
+  onReplayIntro?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onReplayIntro }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -18,166 +19,198 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'about', href: '#about' },
-    { label: 'featured', href: '#featured' },
-    { label: 'workbench', href: '#workbench' },
-    { label: 'experience', href: '#experience' },
-    { label: 'skills', href: '#skills' },
-    { label: 'contact', href: '#contact' },
-  ];
+  const scrollToSection = (id: string) => {
+    setMobileMenuOpen(false);
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <header
       id="main-navbar"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#121212]/95 backdrop-blur-md border-b border-neutral-800 shadow-lg py-3'
-          : 'bg-[#161616] border-b border-neutral-800/80 py-4'
+          ? 'bg-[#0a0b12]/90 backdrop-blur-md border-b border-white/10 shadow-lg py-3.5'
+          : 'bg-transparent py-5 sm:py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo: Circle Monogram */}
+          
+          {/* Brand Name on the Left: "harish bawin." */}
           <a
             href="#"
-            id="nav-logo"
-            className="flex items-center gap-3 group focus:outline-none"
-            title={`${PERSONAL_INFO.name} Portfolio`}
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="group flex items-baseline focus:outline-none"
+            title="Harish Bawin Portfolio"
           >
-            <div className="w-10 h-10 rounded-full bg-white overflow-hidden p-0.5 border border-neutral-700 shadow-md group-hover:scale-105 transition-transform duration-200 flex items-center justify-center">
-              <img
-                src="/icon.png"
-                alt="HB Monogram"
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="hidden sm:block text-left">
-              <span className="block text-sm font-bold tracking-tight text-white group-hover:text-neutral-300 transition-colors">
-                {PERSONAL_INFO.name}
-              </span>
-              <span className="block text-[11px] text-neutral-400 font-medium tracking-wide">
-                Electronics & Embedded Systems Engineer
-              </span>
-            </div>
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white group-hover:text-neutral-200 transition-colors">
+              harish bawin
+            </span>
+            <span className="text-red-500 text-3xl font-extrabold ml-0.5 leading-none animate-pulse">
+              .
+            </span>
           </a>
 
-          {/* Center Navigation Links (Adham style lowercase sans) */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors duration-150 relative py-1 group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-neutral-400 group-hover:w-full transition-all duration-200" />
-              </a>
-            ))}
-          </nav>
-
-          {/* Right Action & Social Icons */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right Action Icons: Social icons cluster matching the reference image */}
+          <div className="hidden sm:flex items-center gap-3 md:gap-4">
+            
+            {/* Instagram */}
             <a
-              href={PERSONAL_INFO.github}
+              href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
-              title="GitHub Profile"
-              id="nav-github-link"
+              aria-label="Instagram Profile"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
             >
-              <Github className="w-4 h-4" />
+              <Instagram className="w-4 h-4" />
             </a>
+
+            {/* LinkedIn */}
             <a
               href={PERSONAL_INFO.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
-              title="LinkedIn Profile"
-              id="nav-linkedin-link"
+              aria-label="LinkedIn Profile"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
             >
               <Linkedin className="w-4 h-4" />
             </a>
+
+            {/* GitHub: Highlighted with a solid red circular badge as in reference image */}
             <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              className="p-2 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
-              title="Email Harish"
-              id="nav-email-link"
+              href={PERSONAL_INFO.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile (Primary)"
+              className="w-9 h-9 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.5)] transition-transform duration-200 hover:scale-110 active:scale-95"
             >
-              <Mail className="w-4 h-4" />
+              <Github className="w-4 h-4" />
             </a>
 
+            {/* Replay Entrance Animation */}
+            {onReplayIntro && (
+              <button
+                onClick={onReplayIntro}
+                title="Replay Cinematic Intro"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-neutral-400 hover:text-red-400 hover:bg-white/10 transition-colors cursor-pointer"
+                aria-label="Replay Cinematic Intro"
+              >
+                <Sparkles className="w-4 h-4" />
+              </button>
+            )}
+
+            {/* Resume Action */}
             <button
               onClick={onOpenResume}
-              id="nav-resume-btn"
-              className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-white text-neutral-900 text-xs font-bold transition-all shadow-sm active:scale-95"
+              className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-semibold border border-white/15 transition-all active:scale-95 cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5" />
+              <FileText className="w-3.5 h-3.5 text-red-400" />
               <span>Resume</span>
             </button>
           </div>
 
-          {/* Mobile Hamburger Button */}
+          {/* Mobile Menu Button */}
           <div className="flex sm:hidden items-center gap-2">
-            <button
-              onClick={onOpenResume}
-              className="px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-900 text-xs font-bold"
-            >
-              Resume
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-neutral-300 hover:text-white"
-              aria-label="Toggle Navigation Menu"
-              id="mobile-menu-toggle"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Dropdown Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-[#181818] border-b border-neutral-800 px-4 pt-3 pb-5 space-y-3">
-          <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold uppercase tracking-wider text-neutral-200 hover:text-white py-2 border-b border-neutral-800/60"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <div className="flex items-center gap-4 pt-2">
             <a
               href={PERSONAL_INFO.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-white flex items-center gap-1.5 text-xs"
+              aria-label="GitHub"
+              className="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shadow-md"
             >
-              <Github className="w-4 h-4" /> GitHub
+              <Github className="w-4 h-4" />
             </a>
-            <a
-              href={PERSONAL_INFO.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-white flex items-center gap-1.5 text-xs"
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg text-neutral-300 hover:text-white bg-neutral-900 border border-neutral-800"
+              aria-label="Toggle navigation menu"
             >
-              <Linkedin className="w-4 h-4" /> LinkedIn
-            </a>
-            <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              className="text-neutral-400 hover:text-white flex items-center gap-1.5 text-xs"
-            >
-              <Mail className="w-4 h-4" /> Contact
-            </a>
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
+
         </div>
-      )}
+
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="sm:hidden mt-3 p-4 rounded-2xl bg-[#14151e]/95 backdrop-blur-xl border border-white/10 shadow-2xl space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
+              <button
+                onClick={() => scrollToSection('home')}
+                className="p-2.5 rounded-lg bg-neutral-900/80 text-left text-neutral-200 hover:text-white"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => scrollToSection('about')}
+                className="p-2.5 rounded-lg bg-neutral-900/80 text-left text-neutral-200 hover:text-white"
+              >
+                About
+              </button>
+              <button
+                onClick={() => scrollToSection('featured')}
+                className="p-2.5 rounded-lg bg-neutral-900/80 text-left text-neutral-200 hover:text-white"
+              >
+                Projects
+              </button>
+              <button
+                onClick={() => scrollToSection('workbench')}
+                className="p-2.5 rounded-lg bg-neutral-900/80 text-left text-neutral-200 hover:text-white"
+              >
+                Interactive Lab
+              </button>
+              <button
+                onClick={() => scrollToSection('skills')}
+                className="p-2.5 rounded-lg bg-neutral-900/80 text-left text-neutral-200 hover:text-white"
+              >
+                Skills & Stack
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="p-2.5 rounded-lg bg-neutral-900/80 text-left text-neutral-200 hover:text-white"
+              >
+                Contact
+              </button>
+            </div>
+
+            <div className="pt-2 border-t border-neutral-800 flex flex-col gap-2">
+              {onReplayIntro && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onReplayIntro();
+                  }}
+                  className="w-full py-2 rounded-lg bg-neutral-800/90 hover:bg-neutral-700 text-neutral-200 text-xs font-semibold flex items-center justify-center gap-2"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-red-400" />
+                  <span>Replay Entrance Animation</span>
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenResume();
+                }}
+                className="w-full py-2 rounded-lg bg-red-600 text-white text-xs font-bold flex items-center justify-center gap-2"
+              >
+                <FileText className="w-4 h-4" />
+                <span>View Full Resume</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+      </div>
     </header>
   );
 };

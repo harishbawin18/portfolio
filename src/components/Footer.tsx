@@ -11,13 +11,13 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative bg-[#f4f4f4] border-t border-neutral-300/80 pt-10 pb-12 text-neutral-600 text-xs">
+    <footer className="relative bg-[#07090e]/90 border-t border-neutral-800/80 pt-10 pb-12 text-neutral-400 text-xs backdrop-blur-md">
       {/* Signature Adham Dannaway Curved Back-To-Top Pill */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <button
           onClick={scrollToTop}
           id="footer-back-to-top"
-          className="w-16 h-8 rounded-t-full bg-[#f4f4f4] border-t border-x border-neutral-300 flex items-center justify-center text-neutral-500 hover:text-neutral-900 transition-colors shadow-xs group"
+          className="w-16 h-8 rounded-t-full bg-[#0d121f] border-t border-x border-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white transition-colors shadow-xs group"
           title="Back to top"
           aria-label="Back to top"
         >
@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
           
           {/* Copyright notice */}
           <div className="text-center sm:text-left">
-            <p className="font-medium text-neutral-700">
+            <p className="font-medium text-neutral-200">
               © {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights reserved.
             </p>
             <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -39,23 +39,23 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Quick Footer Links */}
-          <div className="flex flex-wrap justify-center items-center gap-5 text-neutral-600 font-semibold uppercase tracking-wider text-[11px]">
-            <a href="#about" className="hover:text-neutral-900 transition-colors">
+          <div className="flex flex-wrap justify-center items-center gap-5 text-neutral-400 font-semibold uppercase tracking-wider text-[11px]">
+            <a href="#home" className="hover:text-red-400 transition-colors">
+              home
+            </a>
+            <a href="#about" className="hover:text-red-400 transition-colors">
               about
             </a>
-            <a href="#featured" className="hover:text-neutral-900 transition-colors">
-              featured
+            <a href="#featured" className="hover:text-red-400 transition-colors">
+              projects
             </a>
-            <a href="#workbench" className="hover:text-neutral-900 transition-colors">
+            <a href="#workbench" className="hover:text-red-400 transition-colors">
               workbench
             </a>
-            <a href="#experience" className="hover:text-neutral-900 transition-colors">
-              experience
-            </a>
-            <a href="#skills" className="hover:text-neutral-900 transition-colors">
+            <a href="#skills" className="hover:text-red-400 transition-colors">
               skills
             </a>
-            <a href="#contact" className="hover:text-neutral-900 transition-colors">
+            <a href="#contact" className="hover:text-red-400 transition-colors">
               contact
             </a>
           </div>
@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
               href={PERSONAL_INFO.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:text-neutral-900 hover:border-neutral-400 transition-colors"
+              className="p-2 rounded-full bg-neutral-800 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
               title="GitHub"
             >
               <Github className="w-3.5 h-3.5" />
@@ -75,14 +75,14 @@ export const Footer: React.FC = () => {
               href={PERSONAL_INFO.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:text-neutral-900 hover:border-neutral-400 transition-colors"
+              className="p-2 rounded-full bg-neutral-800 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
               title="LinkedIn"
             >
               <Linkedin className="w-3.5 h-3.5" />
             </a>
             <a
               href={`mailto:${PERSONAL_INFO.email}`}
-              className="p-2 rounded-full bg-white border border-neutral-200 text-neutral-600 hover:text-neutral-900 hover:border-neutral-400 transition-colors"
+              className="p-2 rounded-full bg-neutral-800 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
               title="Email"
             >
               <Mail className="w-3.5 h-3.5" />
